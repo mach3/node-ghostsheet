@@ -1,6 +1,6 @@
 {
   "name": "node-ghostsheet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fetch and parse remote spreadsheet as an object",
   "main": "lib/ghostsheet.js",
   "scripts": {
@@ -9,7 +9,8 @@
   "author": "mach3 <http://github.com/mach3>",
   "license": "MIT",
   "dependencies": {
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "js-beautify": "^1.4.2"
   },
   "devDependencies": {},
   "repository": {
