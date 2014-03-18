@@ -10,12 +10,19 @@ Library to fetch and parse remote spreadsheet as an object for Node.js.
 var Ghostsheet = require("ghostsheet");
 var gs = new Ghostsheet();
 
-gs.get("xXXXXxxxXXXXx/XxX", function(data){
+// Get by key and index of worksheet
+gs.get("xXXXXxxxXXXx", 0, function(data){
     console.log(data);
 
     // Save it as JSON file
     require("fs").writeFileSync("./my-spreadsheet-data.json", JSON.stringify(data));
 });
+
+// Get by key and worksheet's name
+gs.get("xXXXXxxxXXXx", "my_sheet", function(data){ ... });
+
+// Get by Full ID
+gs.get("xXXXXxxxXXXXx/XxX", function(data){ ... });
 ```
 
 - This doesn't have any interfaces for caching, as Ghostsheet on PHP so.
@@ -33,7 +40,10 @@ grunt.initConfig({
 		},
 		dev: {
 			files: {
-				"assets/json/dev.json": "xXXXXxxxXXXXx/XxX"
+				"assets/json/foo.json": "xXXXXxxxXXXXx/XxX", // Full ID
+                "assets/json/bar.json": ["xXXXXxxxXXXXx", 0], // Key and Index
+                "assets/json/baz.json": ["xXXXXxxxXXXXx", "my_sheet"], // Key and Name
+                "assets/json/foobar.json": "xXXXXxxxXXXXx" // Ommit Index (0)
 			}
 		}
 	}

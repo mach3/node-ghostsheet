@@ -20,9 +20,10 @@ module.exports = function(grunt){
 
 		this.files.forEach(function(item){
 			if(! _.isArray(item.orig.src) || ! item.orig.src.length){
-				return grunt.log.error("Invalid spreadsheet ID: " + item.orig.src);
+				return grunt.log.error("! Invalid spreadsheet ID: " + item.orig.src);
 			}
-			gs.get(item.orig.src[0], function(data){
+
+			var process = function(data){
 				var json = JSON.stringify(data);
 				if(_.isString(options.callback)){
 					json = options.callback + "(" + json + ");";
@@ -34,7 +35,12 @@ module.exports = function(grunt){
 				if(! -- length){
 					done();
 				}
-			});
+			};
+			grunt.log.writeln(_.template("> <%=dest %> <= <%=src %>", {
+				dest: item.dest,
+				src: item.orig.src.join("/")
+			}));
+			gs.get.apply(gs, item.orig.src.concat([process]));
 		});
 	});
 
